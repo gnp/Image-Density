@@ -1,0 +1,9 @@
+CHANGES
+lib/Image/Density/TIFF.pm
+Makefile.PL
+MANIFEST
+README
+t/diffuse.tif
+t/examples.t
+t/noisy.tif
+t/original.tif
