@@ -1,9 +1,12 @@
 CHANGES
+COPYRIGHT
 lib/Image/Density/TIFF.pm
+LICENSE
 Makefile.PL
 MANIFEST
 README
 t/diffuse.tif
 t/examples.t
+t/multi.tif
 t/noisy.tif
 t/original.tif

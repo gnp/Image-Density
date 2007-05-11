@@ -4,7 +4,7 @@
 #   Calculate the density of a TIFF image in a way that helps estimate scanned
 #   image quality.
 #
-# Copyright (C) 2003 Gregor N. Purdy. All rights reserved.
+# Copyright (C) 2003-2007 Gregor N. Purdy. All rights reserved.
 # This program is free software. It is subject to the same license as Perl.
 #
 # $Id: TIFF.pm,v 1.1 2003/02/11 21:27:19 gregor Exp $
@@ -17,7 +17,8 @@ Image::Density::TIFF
 =head1 SYNOPSIS
 
   use Image::Density::TIFF;
-  print "Density: %f\n", tiff_density("foo.tif");
+  print "Density: %f\n", tiff_density("foo.tif"); # single-page
+  print "Densities: ", join(", ", tiff_densities("bar.tif")), "\n"; # multi-page
 
 =head1 DESCRIPTION
      
@@ -54,7 +55,7 @@ Gregor N. Purdy <gregor@focusresearch.com>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003 Gregor N. Purdy. All rights reserved.
+Copyright (C) 2003-2007 Gregor N. Purdy. All rights reserved.
 
 =head1 LICENSE
 
@@ -67,7 +68,7 @@ use warnings 'all';
 
 package Image::Density::TIFF;
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 use Inline (
   C            => 'DATA',
@@ -80,7 +81,7 @@ BEGIN {
   use Exporter;
   use vars qw(@ISA @EXPORT);
   @ISA = qw(Exporter);
-  @EXPORT = qw(&tiff_density);
+  @EXPORT = qw(&tiff_density &tiff_densities);
 }
 
 1;
@@ -93,7 +94,10 @@ __C__
 #include <stdarg.h>
 
 typedef void (*TIFFWarningHandler)(const char* module, const char* fmt, va_list ap);
+#if 0
 typedef void (*TIFFErrorHandler)(const char* module, const char* fmt, va_list ap);
+#endif
+
 
 #if 0
 static void tiff_density_err(const char* module, const char* fmt, va_list ap)
@@ -102,8 +106,7 @@ static void tiff_density_err(const char* module, const char* fmt, va_list ap)
 }
 #endif
 
-double tiff_density(char * file_name) {
-  TIFF *             t;       /* TIFF */
+double tiff_directory_density(TIFF * t, TIFFWarningHandler old_warn, TIFFErrorHandler old_err) {
   uint16             bps;     /* Bits per sample */
   uint16             spp;     /* Image depth (samples per pixel?) */
   uint32             w;       /* Image width */
@@ -118,24 +121,13 @@ double tiff_density(char * file_name) {
   double             density;
   uint32             w_margin; /* The margins are used to exclude part of the border */
   uint32             h_margin;
-  TIFFWarningHandler old_warn;
-  TIFFErrorHandler   old_err;
-
-  /*
-  ** Open the TIFF file and find out some things about it.
-  */
-
-  old_warn = TIFFSetWarningHandler((TIFFWarningHandler)0);
-  old_err  = TIFFSetErrorHandler((TIFFWarningHandler)0);
-
-  t = TIFFOpen(file_name, "r");
 
   if (t == NULL) {
     TIFFSetWarningHandler(old_warn);
     TIFFSetErrorHandler(old_err);
     croak("Could not open file for reading");
   }
-
+	
   if (TIFFGetField(t, TIFFTAG_BITSPERSAMPLE, &bps) != 1) {
     TIFFSetWarningHandler(old_warn);
     TIFFSetErrorHandler(old_err);
@@ -299,7 +291,6 @@ double tiff_density(char * file_name) {
   }
 
   free(b);
-  TIFFClose(t);
 
   if (black + white > 0) {
     density = (double)black / (double)(black + white);
@@ -308,9 +299,73 @@ double tiff_density(char * file_name) {
     density = -1.0;
   }
 
+  return density;
+}
+
+double tiff_density(char * file_name) {
+  TIFF *             t;       /* TIFF */
+  TIFFWarningHandler old_warn;
+  TIFFErrorHandler   old_err;
+
+  /*
+  ** Open the TIFF file and find out some things about it.
+  */
+
+  old_warn = TIFFSetWarningHandler((TIFFWarningHandler)0);
+  old_err  = TIFFSetErrorHandler((TIFFWarningHandler)0);
+
+  t = TIFFOpen(file_name, "r");
+
+  if (t == NULL) {
+    TIFFSetWarningHandler(old_warn);
+    TIFFSetErrorHandler(old_err);
+    croak("Could not open file for reading");
+  }
+
+  double density = tiff_directory_density(t, old_warn, old_err);
+
+  TIFFClose(t);
+
   TIFFSetWarningHandler(old_warn);
   TIFFSetErrorHandler(old_err);
 
   return density;
 }
+
+void tiff_densities(char * file_name) {
+  TIFF *             t;       /* TIFF */
+  TIFFWarningHandler old_warn;
+  TIFFErrorHandler   old_err;
+
+  /*
+  ** Open the TIFF file and find out some things about it.
+  */
+
+  old_warn = TIFFSetWarningHandler((TIFFWarningHandler)0);
+  old_err  = TIFFSetErrorHandler((TIFFWarningHandler)0);
+
+  t = TIFFOpen(file_name, "r");
+
+  if (t == NULL) {
+    TIFFSetWarningHandler(old_warn);
+    TIFFSetErrorHandler(old_err);
+    croak("Could not open file for reading");
+  }
+
+  Inline_Stack_Vars;
+  Inline_Stack_Reset;
+  do {
+  	double density = tiff_directory_density(t, old_warn, old_err);
+    Inline_Stack_Push(sv_2mortal(newSVnv(density)));
+  } while (TIFFReadDirectory(t));
+  Inline_Stack_Done;
+
+  TIFFClose(t);
+
+  TIFFSetWarningHandler(old_warn);
+  TIFFSetErrorHandler(old_err);
+
+  return;
+}
+
 
