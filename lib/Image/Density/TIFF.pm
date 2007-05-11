@@ -7,7 +7,7 @@
 # Copyright (C) 2003-2007 Gregor N. Purdy. All rights reserved.
 # This program is free software. It is subject to the same license as Perl.
 #
-# $Id: TIFF.pm,v 1.1 2003/02/11 21:27:19 gregor Exp $
+# $Id$
 #
 
 =head1 NAME
