@@ -16,7 +16,7 @@ DESCRIPTION
     The metric implemented here estimates the density of data where there
     *is* data, and has a reasonable correllation with goodness as judged by
     humans. That is, if you let a human look at a set of images and judge
-    quality, the desity values for those images as calculated here tend to
+    quality, the density values for those images as calculated here tend to
     correllate well with the human judgement (densities that are too high or
     too low represent "bad" images).
 

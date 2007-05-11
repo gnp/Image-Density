@@ -21,7 +21,7 @@ Image::Density::TIFF
   print "Densities: ", join(", ", tiff_densities("bar.tif")), "\n"; # multi-page
 
 =head1 DESCRIPTION
-     
+
 A trivial density calculation would count the number of black pixels and
 divide by the total number of pixels. However, it would produce misleading
 results in the case where the image contains one or more target areas with
@@ -31,7 +31,7 @@ driver's license in the middle of a page).
 The metric implemented here estimates the density of data where there I<is>
 data, and has a
 reasonable correllation with goodness as judged by humans. That is, if you
-let a human look at a set of images and judge quality, the desity values for
+let a human look at a set of images and judge quality, the density values for
 those images as calculated here tend to correllate well with the human
 judgement (densities that are too high or too low represent "bad" images).
 
