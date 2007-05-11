@@ -35,7 +35,8 @@ let a human look at a set of images and judge quality, the density values for
 those images as calculated here tend to correllate well with the human
 judgement (densities that are too high or too low represent "bad" images).
 
-This algorithm is intended for use on bitonal TIFF images.
+This algorithm is intended for use on bitonal TIFF images, such as those from
+scanning paper documents.
 
 =head2 The calculation
 

@@ -20,7 +20,8 @@ DESCRIPTION
     correllate well with the human judgement (densities that are too high or
     too low represent "bad" images).
 
-    This algorithm is intended for use on bitonal TIFF images.
+    This algorithm is intended for use on bitonal TIFF images, such as those
+    from scanning paper documents.
 
   The calculation
     We omit the margins because there is likely to be noise there, such as
