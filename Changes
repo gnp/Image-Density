@@ -1,5 +1,10 @@
 CHANGES
 
+Version 0.3 [2008-06-08]
+
+  * Port build to Module::Build.
+  * Update copyright and email address info.
+
 Version 0.2 [2007-05-10]
 
   * Per a suggestion from Glen Barr, added the ability to return the densities for multiple "pages"

@@ -1,9 +1,9 @@
-CHANGES
-COPYRIGHT
+Build.PL
+Changes
 lib/Image/Density/TIFF.pm
-LICENSE
 Makefile.PL
 MANIFEST
+META.yml # Will be created by "make dist"
 README
 t/diffuse.tif
 t/examples.t

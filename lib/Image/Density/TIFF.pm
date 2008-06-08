@@ -4,7 +4,7 @@
 #   Calculate the density of a TIFF image in a way that helps estimate scanned
 #   image quality.
 #
-# Copyright (C) 2003-2007 Gregor N. Purdy. All rights reserved.
+# Copyright (C) 2003-2008 Gregor N. Purdy, Sr. All rights reserved.
 # This program is free software. It is subject to the same license as Perl.
 #
 # $Id$
@@ -30,9 +30,9 @@ driver's license in the middle of a page).
 
 The metric implemented here estimates the density of data where there I<is>
 data, and has a
-reasonable correllation with goodness as judged by humans. That is, if you
+reasonable correlation with goodness as judged by humans. That is, if you
 let a human look at a set of images and judge quality, the density values for
-those images as calculated here tend to correllate well with the human
+those images as calculated here tend to correlate well with the human
 judgement (densities that are too high or too low represent "bad" images).
 
 This algorithm is intended for use on bitonal TIFF images, such as those from
@@ -52,11 +52,11 @@ is what we really care about.
 
 =head1 AUTHOR
 
-Gregor N. Purdy <gregor@focusresearch.com>
+Gregor N. Purdy, Sr. <gregor@cpan.org>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003-2007 Gregor N. Purdy. All rights reserved.
+Copyright (C) 2003-2008 Gregor N. Purdy, Sr. All rights reserved.
 
 =head1 LICENSE
 
@@ -69,7 +69,7 @@ use warnings 'all';
 
 package Image::Density::TIFF;
 
-our $VERSION = '0.2';
+our $VERSION = '0.3';
 
 use Inline (
   C            => 'DATA',
