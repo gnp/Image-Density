@@ -4,7 +4,7 @@
 #   Calculate the density of a TIFF image in a way that helps estimate scanned
 #   image quality.
 #
-# Copyright (C) 2003-2008 Gregor N. Purdy, Sr. All rights reserved.
+# Copyright (C) 2003-2012 Gregor N. Purdy, Sr. All rights reserved.
 # This program is free software. It is subject to the same license as Perl.
 #
 # $Id$
@@ -52,11 +52,11 @@ is what we really care about.
 
 =head1 AUTHOR
 
-Gregor N. Purdy, Sr. <gregor@cpan.org>
+Gregor N. Purdy, Sr. <gnp@acm.org>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2003-2008 Gregor N. Purdy, Sr. All rights reserved.
+Copyright (C) 2003-2012 Gregor N. Purdy, Sr. All rights reserved.
 
 =head1 LICENSE
 
