@@ -4,7 +4,7 @@ lib/Image/Density/TIFF.pm
 Makefile.PL
 MANIFEST
 META.yml # Will be created by "make dist"
-README
+README.md
 t/diffuse.tif
 t/examples.t
 t/multi.tif
