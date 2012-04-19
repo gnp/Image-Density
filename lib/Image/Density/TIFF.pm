@@ -229,7 +229,7 @@ double tiff_directory_density(TIFF * t, TIFFWarningHandler old_warn, TIFFErrorHa
     for (j = w_margin; j < (w - (2 * w_margin)); j++) {
       unsigned char byte_num = j / 8;
       unsigned char byte     = b[byte_num];
-      unsigned char bit_num  = /* 7 - */ (j % 8); /* TODO: Endian problems? */
+      unsigned char bit_num  = 7 - (j % 8);
       unsigned char sample   = (byte >> bit_num) & 0x01;
 
       /*
