@@ -197,7 +197,7 @@ double tiff_directory_density(TIFF * t, TIFFWarningHandler old_warn, TIFFErrorHa
   ** TIFF file's compression algorithm might not support random access.
   */
 
-  for (i = 0; i < (h - (2 * h_margin)); i++) {
+  for (i = 0; i < (h - h_margin); i++) {
     long          row_black;
     long          row_white;
     unsigned char last_sample;
@@ -226,7 +226,7 @@ double tiff_directory_density(TIFF * t, TIFFWarningHandler old_warn, TIFFErrorHa
     last_sample = 0;
     run_length  = w_margin;
 
-    for (j = w_margin; j < (w - (2 * w_margin)); j++) {
+    for (j = w_margin; j < (w - w_margin); j++) {
       unsigned char byte_num = j / 8;
       unsigned char byte     = b[byte_num];
       unsigned char bit_num  = 7 - (j % 8);
