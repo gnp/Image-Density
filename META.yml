@@ -5,7 +5,7 @@ version:      v0.3
 version_from: lib/Image/Density/TIFF.pm
 installdirs:  site
 requires:
-    Inline::C:                  0.44
+    MAS::TIFF:                  0.4
 
 distribution_type: module
 generated_by: ExtUtils::MakeMaker version 6.30

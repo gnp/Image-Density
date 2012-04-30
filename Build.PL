@@ -8,9 +8,8 @@ my $builder = Module::Build->new(
     dist_author         => 'Gregor N. Purdy, Sr. <gnp@acm.org>',
     dist_version_from   => 'lib/Image/Density/TIFF.pm',
     requires => {
-        'Inline::C'     => 0.44,
+        'MAS:TIFF'     => 0.4,
     },
-    add_to_cleanup      => [ '_Inline' ],
 );
 
 $builder->create_build_script();

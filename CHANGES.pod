@@ -1,14 +1,17 @@
 CHANGES
 
-Version 0.3 [2008-06-08]
+Version 0.3 [2012-04-30]
 
+  * Use MAS::TIFF instead of Inline::C and libtiff to read samples. NOTE: This makes it slower, but more portable.
   * Port build to Module::Build.
   * Update copyright and email address info.
+
 
 Version 0.2 [2007-05-10]
 
   * Per a suggestion from Glen Barr, added the ability to return the densities for multiple "pages"
     (TIFF Directories) in a single file.
+
 
 Version 0.1 [2003-02-11]
 
